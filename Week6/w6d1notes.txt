@@ -1,0 +1,231 @@
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> create database myhousehold;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use myhousehold;
+Database changed
+mysql> CREATE TABLE residents (firstname VARCHAR(20), middleinitial VARCHAR(3), lastname VARCHAR(35), suffix VARCHAR(3));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++-----------------------+
+| Tables_in_myhousehold |
++-----------------------+
+| residents             |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> show columns from myhousehold
+    -> show columns from residents
+    ->
+    -> show columns from residents;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'show columns from residents
+
+show columns from residents' at line 2
+mysql> show colums from residents;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'colums from residents' at line 1
+mysql> drop database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> drop table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show columns from residents;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| firstname     | varchar(20) | YES  |     | NULL    |       |
+| middleinitial | varchar(3)  | YES  |     | NULL    |       |
+| lastname      | varchar(35) | YES  |     | NULL    |       |
+| suffix        | varchar(3)  | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO residents (firstname, middleinitial, lastname, suffix) VALUES ('Katharine', 'G', 'Marsac', 'Mrs');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show columns from residents;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| firstname     | varchar(20) | YES  |     | NULL    |       |
+| middleinitial | varchar(3)  | YES  |     | NULL    |       |
+| lastname      | varchar(35) | YES  |     | NULL    |       |
+| suffix        | varchar(3)  | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM residents
+    -> SELECT * FROM residents;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT * FROM residents' at line 2
+mysql> SELECT * FROM residents;
++-----------+---------------+----------+--------+
+| firstname | middleinitial | lastname | suffix |
++-----------+---------------+----------+--------+
+| Katharine | G             | Marsac   | Mrs    |
++-----------+---------------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO residents (firstname, middleinitial, lastname, suffix) VALUE ('Kyle', 'A', 'Marsac', 'Mr');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM residents;
++-----------+---------------+----------+--------+
+| firstname | middleinitial | lastname | suffix |
++-----------+---------------+----------+--------+
+| Katharine | G             | Marsac   | Mrs    |
+| Kyle      | A             | Marsac   | Mr     |
++-----------+---------------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO residents (firstname, middleinital, lastname, suffix) VALUE ('Ripley', 'A', 'Marsac', 'Ms');
+ERROR 1054 (42S22): Unknown column 'middleinital' in 'field list'
+mysql>  INSERT INTO residents (firstname, middleinitial, lastname, suffix) VALUE ('Ripley', 'A', 'Marsac', 'Ms');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO residents (firstname, middleinitial, lastname, suffix) VALUE ('Oda', '', 'Marsac', '');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM residents;
++-----------+---------------+----------+--------+
+| firstname | middleinitial | lastname | suffix |
++-----------+---------------+----------+--------+
+| Katharine | G             | Marsac   | Mrs    |
+| Kyle      | A             | Marsac   | Mr     |
+| Ripley    | A             | Marsac   | Ms     |
+| Oda       |               | Marsac   |        |
++-----------+---------------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO residents (firstname, middleinitial, lastname, suffix) VALUE ('Jobin', 'B', 'Marsac', 'Mr');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO residents (firstname, middleinitial, lastname, suffix) VALUE ('Eleanor', '', 'Marsac', '');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM residents;
++-----------+---------------+----------+--------+
+| firstname | middleinitial | lastname | suffix |
++-----------+---------------+----------+--------+
+| Katharine | G             | Marsac   | Mrs    |
+| Kyle      | A             | Marsac   | Mr     |
+| Ripley    | A             | Marsac   | Ms     |
+| Oda       |               | Marsac   |        |
+| Jobin     | B             | Marsac   | Mr     |
+| Eleanor   |               | Marsac   |        |
++-----------+---------------+----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> INSERT INTO residents (firstname, middleinitial, lastname, suffix) VALUE ('Stephen', 'M', 'Bateman', 'Mr');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM residents;
++-----------+---------------+----------+--------+
+| firstname | middleinitial | lastname | suffix |
++-----------+---------------+----------+--------+
+| Katharine | G             | Marsac   | Mrs    |
+| Kyle      | A             | Marsac   | Mr     |
+| Ripley    | A             | Marsac   | Ms     |
+| Oda       |               | Marsac   |        |
+| Jobin     | B             | Marsac   | Mr     |
+| Eleanor   |               | Marsac   |        |
+| Stephen   | M             | Bateman  | Mr     |
++-----------+---------------+----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> alter table residents add column age INT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++-----------------------+
+| Tables_in_myhousehold |
++-----------------------+
+| residents             |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> show columns residents;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'residents' at line 1
+mysql> show columns from residents;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| firstname     | varchar(20) | YES  |     | NULL    |       |
+| middleinitial | varchar(3)  | YES  |     | NULL    |       |
+| lastname      | varchar(35) | YES  |     | NULL    |       |
+| suffix        | varchar(3)  | YES  |     | NULL    |       |
+| age           | int(11)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM residents;
++-----------+---------------+----------+--------+------+
+| firstname | middleinitial | lastname | suffix | age  |
++-----------+---------------+----------+--------+------+
+| Katharine | G             | Marsac   | Mrs    | NULL |
+| Kyle      | A             | Marsac   | Mr     | NULL |
+| Ripley    | A             | Marsac   | Ms     | NULL |
+| Oda       |               | Marsac   |        | NULL |
+| Jobin     | B             | Marsac   | Mr     | NULL |
+| Eleanor   |               | Marsac   |        | NULL |
+| Stephen   | M             | Bateman  | Mr     | NULL |
++-----------+---------------+----------+--------+------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE residents SET age=32 where firstname=Katharine;
+ERROR 1054 (42S22): Unknown column 'Katharine' in 'where clause'
+mysql> UPDATE residents SET age=32 where firstname='Katharine';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM residents;
++-----------+---------------+----------+--------+------+
+| firstname | middleinitial | lastname | suffix | age  |
++-----------+---------------+----------+--------+------+
+| Katharine | G             | Marsac   | Mrs    |   32 |
+| Kyle      | A             | Marsac   | Mr     | NULL |
+| Ripley    | A             | Marsac   | Ms     | NULL |
+| Oda       |               | Marsac   |        | NULL |
+| Jobin     | B             | Marsac   | Mr     | NULL |
+| Eleanor   |               | Marsac   |        | NULL |
+| Stephen   | M             | Bateman  | Mr     | NULL |
++-----------+---------------+----------+--------+------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE residents SET age=32 where firstname='Kyle';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE residents SET age=3 where firstname='Ripley';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE residents SET age=2 where firstname='Oda';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE residents SET age=8 where firstname='Jobin';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE residents SET age=1 where firstname='Eleanor';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE residents SET age=64 where firstname='Stephen';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM residents;
++-----------+---------------+----------+--------+------+
+| firstname | middleinitial | lastname | suffix | age  |
++-----------+---------------+----------+--------+------+
+| Katharine | G             | Marsac   | Mrs    |   32 |
+| Kyle      | A             | Marsac   | Mr     |   32 |
+| Ripley    | A             | Marsac   | Ms     |    3 |
+| Oda       |               | Marsac   |        |    2 |
+| Jobin     | B             | Marsac   | Mr     |    8 |
+| Eleanor   |               | Marsac   |        |    1 |
+| Stephen   | M             | Bateman  | Mr     |   64 |
++-----------+---------------+----------+--------+------+
+7 rows in set (0.00 sec)
