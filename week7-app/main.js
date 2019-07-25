@@ -1,42 +1,72 @@
-"use strict"
-​
+// var {server} = require('./server');
+
 var menu = {fries: 3, burger: 2};
+
 var input = document.querySelector('input');
 var button = document.querySelector('button');
+// var inventoryBtn = document.querySelector('btn');
+
+// inventoryBtn.addEventListener('click', function(){
+//     for(var item in menu){
+//         document.open();
+//         document.write("<h1>" + item + menu[item] + "</h1>");
+//         document.close();
+//     }
+//     console.log(menu);
+    
+// });
+
+
+
 button.addEventListener('click', function(){
     var customerOrder = input.value;
     customerOrder = customerOrder.split(',');
-    
-    // console.log(customerOrder);
-    
+    console.log(customerOrder);
+
     for(var i = 0; i < customerOrder.length; i++){
- 
-        var customerItem = customerOrder[i].split(':');
-​
-​
+         var customerItem = customerOrder[i].split(':');
+
         for(var item in menu) {
-               customerItem = menu[item]; 
-               console.log(customerItem[0], item);
-              if(item === customerItem[0]){
-                  console.log("Thanks for your order!")
-              } else {
-                //   console.log(item);
-                //   console.log(menu[item]);
-                  console.log("Not on menu");
-              }
+   
+            if(item === customerItem[0]){
+
+                if (menu[item] >= customerItem[1]){
+                    console.log("You ordered " + customerItem[1] + " "+ customerItem[0]);
+                    menu[item] -= customerItem[1];
+                    console.log("We now have " + menu[item]);
+                } 
+                else {
+                    console.log("Sorry we only have " + menu[item]);
+            }       
+        }        
+            else {
+                console.log("Not on menu");
             }
-        
+        }
+    } 
+    loadDoc();
+})
+
+function loadDoc(){
+
+    var funnel = new XMLHttpRequest();
+     
+    funnel.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200){
+             console.log("the ready state is " + funnel.readyState);
+                 console.log(this.responseText);  
+                 console.log(responseText);     
+        } else {
+            console.log(this.readyState, this.status);
     }
+}
+funnel.open("GET","http://localhost:8080/hi/hello");
+funnel.send();
 
-       
-    
-    
-        
-               
-        })  
- 
 
-        inventoryBtn.addEventListener('click', function(){
-            return(menu[item]);
-            
-        });
+
+}
+
+
+
+// server();
